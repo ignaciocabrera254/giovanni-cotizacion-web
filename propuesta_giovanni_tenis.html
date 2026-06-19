@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Propuesta — Giovanni Tenis</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --teal:    #0F6E56;
+    --teal-m:  #1D9E75;
+    --teal-l:  #E1F5EE;
+    --teal-ll: #F2FAF6;
+    --dark:    #1C1C1E;
+    --gray:    #5F5E5A;
+    --gray-l:  #F4F3F0;
+    --border:  #E0DED8;
+    --amber:   #854F0B;
+    --amber-l: #FAEEDA;
+    --red:     #791F1F;
+    --red-l:   #FEF1F1;
+    --green:   #27500A;
+    --green-l: #EAF3DE;
+  }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    color: var(--dark);
+    background: #fff;
+    line-height: 1.65;
+    font-size: 15px;
+  }
+  .page { max-width: 760px; margin: 0 auto; padding: 0 24px 60px; }
+
+  /* ── HEADER ── */
+  .hero {
+    background: var(--teal);
+    color: white;
+    padding: 48px 32px 40px;
+    border-radius: 0 0 20px 20px;
+    margin-bottom: 48px;
+  }
+  .hero-badge {
+    display: inline-block;
+    background: rgba(255,255,255,.15);
+    border: 1px solid rgba(255,255,255,.3);
+    border-radius: 100px;
+    padding: 4px 14px;
+    font-size: 12px;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  .hero h1 {
+    font-size: clamp(24px, 5vw, 34px);
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 14px;
+  }
+  .hero p { color: white; font-size: 15px; opacity: .85; max-width: 540px; }
+  .hero-meta {
+    display: flex;
+    gap: 24px;
+    margin-top: 28px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(255,255,255,.2);
+    font-size: 13px;
+    opacity: .8;
+    flex-wrap: wrap;
+  }
+  .hero-meta span b { display: block; font-size: 11px; text-transform: uppercase; letter-spacing: .06em; opacity: .7; margin-bottom: 2px; }
+
+  /* ── SECTIONS ── */
+  .section { margin-bottom: 52px; }
+  .section-label {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--teal-m);
+    margin-bottom: 10px;
+  }
+  h2 {
+    font-size: clamp(19px, 3.5vw, 24px);
+    font-weight: 700;
+    color: var(--dark);
+    line-height: 1.25;
+    margin-bottom: 14px;
+  }
+  h3 { font-size: 16px; font-weight: 700; color: var(--dark); margin-bottom: 6px; }
+  p { color: var(--gray); margin-bottom: 12px; }
+  p:last-child { margin-bottom: 0; }
+  strong { color: var(--dark); font-weight: 600; }
+
+  /* ── CALLOUT BOXES ── */
+  .callout {
+    background: var(--teal-l);
+    border-left: 4px solid var(--teal-m);
+    border-radius: 0 10px 10px 0;
+    padding: 18px 20px;
+    margin: 20px 0;
+  }
+  .callout p { color: var(--dark); margin: 0; font-size: 14px; }
+  .callout-amber {
+    background: var(--amber-l);
+    border-left-color: var(--amber);
+  }
+  .callout-amber p { color: #4A2800; }
+
+  /* ── STAT ROW ── */
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 12px;
+    margin: 24px 0;
+  }
+  .stat {
+    background: var(--gray-l);
+    border-radius: 12px;
+    padding: 18px 16px;
+    text-align: center;
+  }
+  .stat-num {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--teal);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .stat-label { font-size: 12px; color: var(--gray); line-height: 1.4; }
+
+  /* ── BENEFIT LIST ── */
+  .benefit-list { list-style: none; margin: 16px 0; }
+  .benefit-list li {
+    display: flex;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+    align-items: flex-start;
+  }
+  .benefit-list li:last-child { border-bottom: none; }
+  .benefit-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--teal-l);
+    color: var(--teal);
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .benefit-text h4 { font-size: 14px; font-weight: 600; color: var(--dark); margin-bottom: 2px; }
+  .benefit-text p { font-size: 13px; margin: 0; }
+
+  /* ── PAGE CARDS ── */
+  .page-cards { display: flex; flex-direction: column; gap: 10px; margin-top: 18px; }
+  .page-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px 18px;
+    display: grid;
+    grid-template-columns: 36px 1fr;
+    gap: 14px;
+    align-items: flex-start;
+  }
+  .page-num {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    background: var(--teal);
+    color: white;
+    font-size: 13px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .page-info h4 { font-size: 14px; font-weight: 700; color: var(--dark); margin-bottom: 3px; }
+  .page-info .page-why { font-size: 13px; color: var(--gray); margin: 0; }
+  .page-tag {
+    display: inline-block;
+    font-size: 11px;
+    background: var(--teal-l);
+    color: var(--teal);
+    border-radius: 100px;
+    padding: 2px 8px;
+    margin-bottom: 4px;
+    font-weight: 600;
+  }
+
+  /* ── PRICING ── */
+  .price-hero {
+    background: var(--dark);
+    color: white;
+    border-radius: 16px;
+    padding: 32px 28px;
+    margin: 24px 0;
+    text-align: center;
+  }
+  .price-hero .main-price {
+    font-weight: 700;
+    color: white;
+    line-height: 1;
+    margin: 8px 0 6px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+  }
+  .price-hero .main-price .old-price {
+    text-decoration: line-through;
+    font-size: 32px;
+    opacity: 0.6;
+  }
+  .price-hero .main-price .new-price {
+    font-size: clamp(36px, 8vw, 52px);
+  }
+  @media (max-width: 600px) {
+    .price-hero .main-price .old-price {
+      font-size: 24px;
+    }
+  }
+  .price-hero .price-label {
+    font-size: 13px;
+    opacity: .6;
+    margin-bottom: 0;
+    color: white;
+  }
+  .price-table { width: 100%; border-collapse: collapse; margin-top: 16px; }
+  .price-table tr { border-bottom: 1px solid var(--border); }
+  .price-table tr:last-child { border-bottom: none; }
+  .price-table td { padding: 12px 4px; font-size: 14px; vertical-align: top; }
+  .price-table .td-label { color: var(--dark); font-weight: 500; }
+  .price-table .td-detail { color: var(--gray); font-size: 12px; margin-top: 2px; }
+  .price-table .td-price { text-align: right; font-weight: 700; color: var(--dark); white-space: nowrap; padding-left: 12px; }
+  .price-total {
+    background: var(--teal-l);
+    border-radius: 10px;
+    padding: 14px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 8px;
+  }
+  .price-total span:first-child { font-weight: 700; font-size: 15px; color: var(--dark); }
+  .price-total span:last-child { font-weight: 700; font-size: 18px; color: var(--teal); }
+
+  .recurring-table { width: 100%; border-collapse: collapse; margin: 12px 0; }
+  .recurring-table tr { border-bottom: 1px solid var(--border); }
+  .recurring-table td { padding: 10px 4px; font-size: 13px; vertical-align: middle; }
+  .recurring-table .rt-label { color: var(--dark); font-weight: 500; }
+  .recurring-table .rt-sub { color: var(--gray); font-size: 12px; display: block; }
+  .recurring-table .rt-price { text-align: right; font-weight: 700; color: var(--dark); }
+
+  /* ── PAYMENT STEPS ── */
+  .payment-steps { display: flex; flex-direction: column; gap: 0; margin: 20px 0; }
+  .pay-step {
+    display: grid;
+    grid-template-columns: 44px 1fr auto;
+    gap: 14px;
+    align-items: center;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .pay-step:last-child { border-bottom: none; }
+  .pay-circle {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--teal-l);
+    color: var(--teal);
+    font-weight: 700;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .pay-info h4 { font-size: 14px; font-weight: 700; color: var(--dark); margin-bottom: 2px; }
+  .pay-info p { font-size: 13px; margin: 0; }
+  .pay-amount { font-size: 16px; font-weight: 700; color: var(--dark); text-align: right; white-space: nowrap; }
+
+  /* ── INCLUDES / NOT ── */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 16px; }
+  @media (max-width: 600px) { .two-col { grid-template-columns: 1fr; } }
+  .inc-box { border-radius: 10px; padding: 16px; }
+  .inc-box.yes { background: var(--green-l); }
+  .inc-box.no  { background: var(--red-l); }
+  .inc-box h4 { font-size: 13px; font-weight: 700; margin-bottom: 10px; }
+  .inc-box.yes h4 { color: var(--green); }
+  .inc-box.no  h4 { color: var(--red); }
+  .inc-box ul { list-style: none; }
+  .inc-box ul li { font-size: 12.5px; padding: 4px 0; border-bottom: 1px solid rgba(0,0,0,.06); color: var(--gray); }
+  .inc-box ul li:last-child { border-bottom: none; }
+  .inc-box.yes ul li::before { content: '✓ '; color: var(--green); font-weight: 700; }
+  .inc-box.no  ul li::before { content: '✗ '; color: var(--red); font-weight: 600; }
+
+  /* ── SIGNATURE ── */
+  .signature-area {
+    border-top: 2px solid var(--border);
+    margin-top: 52px;
+    padding-top: 32px;
+  }
+  .sig-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-top: 24px; }
+  @media (max-width: 600px) { .sig-grid { grid-template-columns: 1fr; } }
+  .sig-field { text-align: center; }
+  .sig-line { border-bottom: 1.5px solid var(--dark); margin-bottom: 8px; height: 36px; }
+  .sig-name { font-size: 13px; font-weight: 700; color: var(--dark); }
+  .sig-sub  { font-size: 12px; color: var(--gray); margin: 2px 0 0; }
+  .sig-date { margin-top: 14px; font-size: 13px; color: var(--gray); text-align: center; }
+
+  /* ── DIVIDER ── */
+  .divider { border: none; border-top: 1px solid var(--border); margin: 48px 0; }
+
+  /* ── FOOTER ── */
+  .doc-footer {
+    border-top: 1px solid var(--border);
+    padding-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: var(--gray);
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 40px;
+  }
+
+  @media print {
+    body { font-size: 13px; }
+    .hero { border-radius: 0; }
+    .page { padding: 0 16px 40px; max-width: 100%; }
+    .page-card, .stat, .callout { break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ── HEADER ─────────────────────────────────────────── -->
+  <div class="hero">
+    <div class="hero-badge">Propuesta Comercial</div>
+    <h1>Tu cancha en internet:<br>el sitio que consigue alumnos mientras entrenas</h1>
+    <p>Una propuesta de diseño web y posicionamiento en Google pensada específicamente para Giovanni Tenis, con las dos sedes en Las Condes y Buin.</p>
+    <div class="hero-meta">
+      <span><b>Para</b>Giovanni · Head Coach &amp; Founder</span>
+      <span><b>Fecha</b>18 de junio de 2026</span>
+      <span><b>Válida hasta</b>18 de julio de 2026</span>
+    </div>
+  </div>
+
+  <!-- ── EL PROBLEMA ──────────────────────────────────── -->
+  <div class="section">
+    <div class="section-label">La realidad del mercado</div>
+    <h2>Hoy, tus futuros alumnos te están buscando en Google y no te encuentran</h2>
+    <p>Cada mes, decenas de personas en Las Condes escriben en Google "clases de tenis" buscando exactamente lo que tú ofreces. Lo mismo pasa en Buin, Paine y Calera de Tango. Esas personas están listas para empezar, tienen la raqueta en la mano y solo necesitan dar con el profesor correcto.</p>
+    <p>El problema es que si no tienes un sitio web bien construido, Google no sabe que existes. Esas búsquedas terminan en academias con metodologías genéricas, en perfiles de Instagram sin precios, o en clubes privados a los que la mayoría no puede acceder.</p>
+
+    <div class="callout">
+      <p><strong>50 personas al mes buscan "clases de tenis Las Condes" en Google.</strong> Eso son 600 oportunidades al año. Hoy, ninguna de ellas llega a tu agenda.</p>
+    </div>
+
+    <p>No es un problema de calidad ni de precios: tu metodología ITF, el enfoque biomecánico y la red médica integrada son diferenciadores reales que ningún competidor tiene. El problema es visibilidad. Y eso es exactamente lo que vamos a solucionar.</p>
+  </div>
+
+  <!-- ── POR QUÉ UN SITIO WEB ─────────────────────────── -->
+  <div class="section">
+    <div class="section-label">Por qué invertir en un sitio web</div>
+    <h2>Tu sitio web trabaja las 24 horas, los 7 días de la semana</h2>
+    <p>Cuando estás en cancha entrenando, tu sitio web está respondiendo las preguntas de tus próximos alumnos: ¿cuánto cuesta? ¿qué metodología usan? ¿el profesor tiene credenciales? ¿hay clases para niños? Un sitio bien construido convierte esas dudas en consultas por WhatsApp antes de que el visitante llegue a otro resultado de Google.</p>
+
+    <ul class="benefit-list">
+      <li>
+        <div class="benefit-icon">📍</div>
+        <div class="benefit-text">
+          <h4>Apareces donde te buscan</h4>
+          <p>Cuando alguien en Las Condes o Buin busca un profesor de tenis, tu sitio aparece en los primeros resultados de Google. Sin pagar publicidad.</p>
+        </div>
+      </li>
+      <li>
+        <div class="benefit-icon">🏅</div>
+        <div class="benefit-text">
+          <h4>Tu credencial ITF habla antes que tú</h4>
+          <p>El visitante ve tu certificación internacional, tu metodología y tus precios transparentes antes de escribirte. Llega convencido, no dudando.</p>
+        </div>
+      </li>
+      <li>
+        <div class="benefit-icon">💰</div>
+        <div class="benefit-text">
+          <h4>Muestras los precios y ganas confianza</h4>
+          <p>Ningún competidor muestra sus precios online. Tú sí. Eso elimina la fricción del "¿cuánto cuesta?" y atrae al alumno que ya está listo para empezar.</p>
+        </div>
+      </li>
+      <li>
+        <div class="benefit-icon">🌍</div>
+        <div class="benefit-text">
+          <h4>Llegas a comunas donde no hay competencia</h4>
+          <p>Paine, Calera de Tango, Linderos y San Bernardo no tienen ningún profesor de tenis con sitio propio. Tu sitio cubre esas zonas y captura demanda que hoy nadie está atendiendo.</p>
+        </div>
+      </li>
+      <li>
+        <div class="benefit-icon">👨‍👩‍👧</div>
+        <div class="benefit-text">
+          <h4>Los papás eligen con criterio</h4>
+          <p>Un padre que busca clases para su hijo necesita ver metodología, edades, horarios y quién va a enseñarle. Un sitio profesional responde todo eso y convierte la duda en inscripción.</p>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <!-- ── QUÉ ES EL SEO ────────────────────────────────── -->
+  <div class="section">
+    <div class="section-label">Por qué el SEO importa</div>
+    <h2>SEO: que Google te recomiende a ti, no a tu competencia</h2>
+    <p>SEO es la sigla en inglés de "posicionamiento en buscadores". En términos simples: es el trabajo que hace que tu sitio aparezca arriba en Google cuando alguien busca un servicio como el tuyo.</p>
+    <p>La diferencia entre aparecer en el primer puesto y en el tercero no es menor. <strong>El 75% de las personas hace clic en uno de los tres primeros resultados y nunca baja más.</strong> Si no estás ahí, no existes para ese buscador.</p>
+
+    <div class="callout callout-amber">
+      <p>🎯 <strong>Cómo funciona en la práctica:</strong> Una persona en Las Condes escribe "clases de tenis Las Condes" en Google. Aparecen los primeros resultados. Si tu sitio está optimizado correctamente, tu página aparece ahí — con tu nombre, tu credencial ITF y una descripción que le da confianza. Un clic. Un mensaje por WhatsApp. Un nuevo alumno.</p>
+    </div>
+
+    <p>El SEO no es magia ni publicidad pagada. Es construir el sitio de la manera correcta desde el principio: con las palabras exactas que usan tus potenciales alumnos, con una estructura que Google entiende y con contenido que responde sus preguntas. Todo eso ya está diseñado y listo para implementar.</p>
+
+    <div class="stats">
+      <div class="stat">
+        <div class="stat-num">50</div>
+        <div class="stat-label">búsquedas mensuales en Google para "clases de tenis Las Condes"</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">8</div>
+        <div class="stat-label">palabras clave con intención de contratar identificadas en tu zona</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">0</div>
+        <div class="stat-label">competidores en Buin con un sitio web bien posicionado</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── LAS 8 PÁGINAS ─────────────────────────────────── -->
+  <div class="section">
+    <div class="section-label">Lo que vamos a construir</div>
+    <h2>8 páginas, cada una pensada para convertir una búsqueda en un alumno</h2>
+    <p>No es un sitio de presentación genérico. Cada página responde exactamente las preguntas que hace una persona que está buscando lo que tú ofreces, en el momento justo en que lo está buscando.</p>
+
+    <div class="page-cards">
+
+      <div class="page-card">
+        <div class="page-num">01</div>
+        <div class="page-info">
+          <div class="page-tag">Página principal</div>
+          <h4>Home — La primera impresión que no vas a poder repetir</h4>
+          <p class="page-why">El visitante llega y en 5 segundos entiende quién eres, qué ofreces y por qué elegirte. Presenta las dos sedes, los servicios principales y el llamado a contacto. Es la puerta de entrada a todo lo demás.</p>
+        </div>
+      </div>
+
+      <div class="page-card">
+        <div class="page-num">02</div>
+        <div class="page-info">
+          <div class="page-tag">Sede Las Condes</div>
+          <h4>Tu página para capturar alumnos del sector oriente</h4>
+          <p class="page-why">Diseñada específicamente para aparecer cuando alguien busca "clases de tenis Las Condes" en Google. Incluye formatos de clase, precios visibles, tu credencial ITF y el proceso para agendar. Ningún competidor en esa búsqueda muestra todo esto junto.</p>
+        </div>
+      </div>
+
+      <div class="page-card">
+        <div class="page-num">03</div>
+        <div class="page-info">
+          <div class="page-tag">Sede Buin</div>
+          <h4>Tu página para la zona sur — sin competencia real en Google</h4>
+          <p class="page-why">Posiciona el Club El Raquetazo como la opción obvia para quienes viven en Buin, Paine, Calera de Tango, Linderos y San Bernardo. En esas comunas no hay ningún profesor de tenis con presencia web. El primero en llegar se lleva todos esos alumnos.</p>
+        </div>
+      </div>
+
+      <div class="page-card">
+        <div class="page-num">04</div>
+        <div class="page-info">
+          <div class="page-tag">Programa infantil</div>
+          <h4>Tenis Infantil — El papá decide, el niño disfruta</h4>
+          <p class="page-why">Hecha para los padres que buscan clases para sus hijos. Explica la metodología Play &amp; Stay de la ITF, las edades y grupos, y por qué el tenis desarrolla coordinación, disciplina y confianza más allá del deporte. Convierte la búsqueda de un papá en una inscripción.</p>
+        </div>
+      </div>
+
+      <div class="page-card">
+        <div class="page-num">05</div>
+        <div class="page-info">
+          <div class="page-tag">Servicio premium</div>
+          <h4>Clase Individual — Tu servicio de mayor valor, explicado</h4>
+          <p class="page-why">El alumno que quiere clase 1:1 ya sabe el formato, la pregunta es ¿por qué contigo? Esta página responde eso: el diagnóstico biomecánico, la corrección personalizada, la preparación física integrada y el convenio con kinesiólogos. Justifica el precio antes de que lo pregunten.</p>
+        </div>
+      </div>
+
+      <div class="page-card">
+        <div class="page-num">06</div>
+        <div class="page-info">
+          <div class="page-tag">Comunidad</div>
+          <h4>Clases Grupales — Mejorar el juego y encontrar tu grupo</h4>
+          <p class="page-why">Para el adulto que quiere técnica pero también quiere entrenar acompañado. Explica el formato de dúos, tríos y grupos de hasta 4, cómo se forman los grupos por nivel y la dinámica de comunidad con el grupo de WhatsApp. El ángulo social que ningún competidor comunica.</p>
+        </div>
+      </div>
+
+      <div class="page-card">
+        <div class="page-num">07</div>
+        <div class="page-info">
+          <div class="page-tag">Credenciales</div>
+          <h4>Sobre Giovanni y la metodología — Tu autoridad en palabras simples</h4>
+          <p class="page-why">La página que convierte a los indecisos. Explica qué significa la certificación ITF Nivel 1, por qué la biomecánica cambia el juego a largo plazo, y cómo la red médica integrada protege al alumno de lesiones. El jugador más exigente llega aquí y toma la decisión.</p>
+        </div>
+      </div>
+
+      <div class="page-card">
+        <div class="page-num">08</div>
+        <div class="page-info">
+          <div class="page-tag">Conversión</div>
+          <h4>Contacto — El formulario que cierra la venta</h4>
+          <p class="page-why">Formulario de contacto directo, botón de WhatsApp siempre visible, mapa con las dos sedes y horarios de atención. El visitante que llegó aquí quiere agendar. Esta página hace que sea fácil hacerlo.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── INVERSIÓN ─────────────────────────────────────── -->
+  <div class="section">
+    <div class="section-label">Inversión</div>
+    <h2>Precio del proyecto completo</h2>
+    <p>El valor incluye todo el trabajo de estrategia, diseño, construcción y optimización para Google. Sin letra chica ni costos sorpresa al final.</p>
+
+    <div class="price-hero">
+      <p class="price-label">Total del proyecto</p>
+      <div class="main-price">
+        <span class="old-price">$1.020.000</span>
+        <span class="new-price">$408.000</span>
+      </div>
+      <p class="price-label">pesos chilenos</p>
+    </div>
+
+    <table class="price-table">
+      <tr>
+        <td>
+          <div class="td-label">✓&ensp;Estrategia SEO</div>
+          <div class="td-detail">Investigación de palabras clave · análisis de competencia en Google · arquitectura de cada página</div>
+        </td>
+        <td class="td-price">$200.000</td>
+      </tr>
+      <tr>
+        <td>
+          <div class="td-label">✓&ensp;Diseño visual del sitio</div>
+          <div class="td-detail">Aspecto visual de las 8 páginas · diseño adaptado a celular · 2 rondas de revisión</div>
+        </td>
+        <td class="td-price">$300.000</td>
+      </tr>
+      <tr>
+        <td>
+          <div class="td-label">✓&ensp;Construcción del sitio web</div>
+          <div class="td-detail">Programación de las 8 páginas · WhatsApp · mapa de sedes · formulario · velocidad optimizada</div>
+        </td>
+        <td class="td-price">$400.000</td>
+      </tr>
+      <tr>
+        <td>
+          <div class="td-label">✓&ensp;Optimización para Google</div>
+          <div class="td-detail">Configuración técnica para que Google indexe y posicione cada página correctamente</div>
+        </td>
+        <td class="td-price">$120.000</td>
+      </tr>
+      <tr>
+        <td>
+          <div class="td-label" style="color:var(--amber);">Descuento especial (60%)</div>
+          <div class="td-detail">Bonificación aplicada sobre el total del proyecto</div>
+        </td>
+        <td class="td-price" style="color:var(--amber);">-$612.000</td>
+      </tr>
+    </table>
+    <div class="price-total">
+      <span>Total a pagar</span>
+      <span>$408.000</span>
+    </div>
+  </div>
+
+  <!-- ── COSTOS ANUALES ─────────────────────────────────── -->
+  <div class="section">
+    <div class="section-label">Costos anuales del sitio</div>
+    <h2>Para mantener el sitio activo: $61.290 al año</h2>
+    <p>Estos son los únicos costos recurrentes que tendrá el sitio. Se pagan directamente a cada proveedor, no a mí. Son el equivalente a un par de clases por año para tener tu presencia digital funcionando los 365 días.</p>
+
+    <table class="recurring-table">
+      <tr>
+        <td>
+          <span class="rt-label">Hosting · alojamiento web</span>
+          <span class="rt-sub">Cloudflare Pages · CDN global · SSL automático · velocidad premium</span>
+        </td>
+        <td class="rt-price">USD $54/año<br><span style="font-size:11px;color:#5F5E5A;font-weight:400;">≈ $51.300 CLP</span></td>
+      </tr>
+      <tr>
+        <td>
+          <span class="rt-label">Dominio · giovannitenis.cl</span>
+          <span class="rt-sub">Registro en NIC Chile · Universidad de Chile · renovación anual</span>
+        </td>
+        <td class="rt-price">$9.990/año</td>
+      </tr>
+    </table>
+    <div class="price-total" style="background:#F4F3F0;">
+      <span>Total costos anuales</span>
+      <span style="color:#1C1C1E;">~$61.290 / año</span>
+    </div>
+  </div>
+
+  <!-- ── INCLUYE / NO INCLUYE ──────────────────────────── -->
+  <div class="section">
+    <div class="section-label">Aclaraciones</div>
+    <h2>Qué está incluido y qué no</h2>
+    <div class="two-col">
+      <div class="inc-box yes">
+        <h4>✓ Incluye</h4>
+        <ul>
+          <li>Estrategia SEO ya realizada</li>
+          <li>Diseño visual personalizado</li>
+          <li>8 páginas construidas y publicadas</li>
+          <li>Botón WhatsApp + Google Maps (2 sedes)</li>
+          <li>Google Analytics + Search Console</li>
+          <li>2 rondas de revisión por etapa</li>
+          <li>90 días de soporte post-lanzamiento</li>
+
+        </ul>
+      </div>
+      <div class="inc-box no">
+        <h4>✗ No incluye</h4>
+        <ul>
+          <li>Hosting ($54 USD/año, pago aparte)</li>
+          <li>Dominio .cl ($9.990/año, pago aparte)</li>
+          <li>Fotos o videos profesionales</li>
+          <li>Publicidad pagada en Google o Meta</li>
+          <li>Redacción de textos</li>
+          <li>Mantenimiento mensual luego de los 90 días</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── FORMA DE PAGO ──────────────────────────────────── -->
+  <div class="section">
+    <div class="section-label">Condiciones de pago</div>
+    <h2>En dos cuotas según el avance del proyecto</h2>
+    <p>El trabajo se divide en etapas claras. Solo se pasa a la siguiente cuando tú apruebas lo anterior.</p>
+
+    <div class="payment-steps">
+      <div class="pay-step">
+        <div class="pay-circle">1°</div>
+        <div class="pay-info">
+          <h4>Al aprobar esta propuesta — 50%</h4>
+          <p>Se confirma con el pago. Arranca el diseño y la construcción del sitio.</p>
+        </div>
+        <div class="pay-amount">$204.000</div>
+      </div>
+      <div class="pay-step">
+        <div class="pay-circle">2°</div>
+        <div class="pay-info">
+          <h4>Al lanzar el sitio — 50%</h4>
+          <p>Cuando el sitio está publicado en giovannitenis.cl y funcionando correctamente.</p>
+        </div>
+        <div class="pay-amount">$204.000</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── POR QUÉ AHORA ──────────────────────────────────── -->
+  <div class="section">
+    <div class="section-label">Por qué hacer esto ahora</div>
+    <h2>El mercado digital del tenis en Chile está vacante. Por poco tiempo.</h2>
+    <p>Lo que reveló el análisis de tu competencia en Google es que ninguno de tus competidores directos tiene un sitio web realmente bien hecho. No muestran precios, no tienen nombre del profesor, no explican la metodología. El que primero construya bien su presencia online se queda con ese espacio.</p>
+    <p>El SEO no es publicidad que empieza y termina: es como construir una cancha. Lleva tiempo armarla, pero una vez lista, trae partidos solos. <strong>Cada mes que pasa sin sitio son 50 búsquedas en Las Condes más las de Buin que no llegaron a tu WhatsApp.</strong></p>
+
+    <div class="callout">
+      <p>El plazo estimado del proyecto es de <strong>5 semanas</strong> desde la confirmación. Si arrancamos esta semana, el sitio puede estar activo antes de que termine julio.</p>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ── ACEPTACIÓN ─────────────────────────────────────── -->
+  <div class="signature-area">
+    <div class="section-label">Aceptación de la propuesta</div>
+    <h2>¿Seguimos?</h2>
+    <p>Esta propuesta tiene validez hasta el <strong>18 de julio de 2026</strong>. La aprobación puede ser por WhatsApp o correo. Una vez confirmado el primer pago, arrancamos la semana siguiente.</p>
+    <p>Cualquier duda antes de decidir, con gusto la conversamos.</p>
+
+    <div class="sig-grid">
+      <div class="sig-field">
+        <div class="sig-line"></div>
+        <div class="sig-name">Diseñador Web</div>
+        <div class="sig-date">Fecha: _______ / _______ / 2026</div>
+      </div>
+      <div class="sig-field">
+        <div class="sig-line"></div>
+        <div class="sig-name">Giovanni — Firma del cliente</div>
+        <div class="sig-date">Fecha: _______ / _______ / 2026</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="doc-footer">
+    <span>Giovanni Tenis · Propuesta</span>
+    <span>Válida hasta el 18 de julio de 2026</span>
+    <span>hola@giovannitenis.cl</span>
+  </div>
+
+</div>
+</body>
+</html>
